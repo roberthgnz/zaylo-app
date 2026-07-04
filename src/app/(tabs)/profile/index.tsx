@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { BottomTabInset } from "@/constants/theme";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
 import { useBagData } from "@/lib/useBagData";
 
@@ -16,7 +17,7 @@ export default function ProfileScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-background-light dark:bg-background-dark" edges={["top", "bottom"]}>
-      <ScrollView contentContainerClassName="gap-6 px-5 pt-6 pb-10">
+      <ScrollView contentContainerClassName="gap-6 px-5 pt-6" contentContainerStyle={{ paddingBottom: BottomTabInset }}>
         <View className="overflow-hidden rounded-[2rem] bg-black p-6">
           <View className="mb-8 flex-row items-center justify-between">
             <View className="h-16 w-16 items-center justify-center rounded-3xl bg-white">

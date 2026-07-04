@@ -6,6 +6,7 @@
   "backToStore": "Volver a la bolsa",
   "noImage": "Sin imagen",
   "sizeLine": "Talla: {{size}}",
+  "viewProduct": "Ver producto",
   "remove": "Eliminar",
   "continueWith": "Continuar con @{{username}}",
   "sellerContactUnavailable": "Contacto del vendedor no disponible"

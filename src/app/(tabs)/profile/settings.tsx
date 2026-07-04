@@ -66,6 +66,14 @@ export default function SettingsScreen() {
           </View>
 
           <LanguageSelector />
+
+          <Pressable
+            onPress={() => router.push("/profile/change-password")}
+            className="flex-row items-center justify-between border-t border-neutral-200 pt-4 dark:border-neutral-800"
+          >
+            <Text className="text-sm font-semibold text-text-light dark:text-text-dark">Change password</Text>
+            <Text className="text-text-secondary-light dark:text-text-secondary-dark">›</Text>
+          </Pressable>
         </View>
 
         {isSeller ? (

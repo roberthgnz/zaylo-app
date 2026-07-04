@@ -30,6 +30,13 @@ export async function updateUserProfile(userId: string, values: Partial<ZayloUse
   });
 }
 
+export async function getUserByUsername(username: string) {
+  const { profile } = await apiRequest<{ profile: ZayloUserProfile | null }>(
+    `/api/profiles/by-username/${encodeURIComponent(username)}`
+  );
+  return profile;
+}
+
 export async function isUsernameAvailable(username: string, currentUserId?: string) {
   const searchParams = new URLSearchParams({ username });
   if (currentUserId) {

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "zaylo-app-web",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["cross-env", "CI=1", "expo", "start", "--web", "--port", "8082"],
+      "port": 8092
+    }
+  ]
+}

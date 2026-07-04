@@ -6,6 +6,7 @@
   "backToStore": "Back to bag",
   "noImage": "No image",
   "sizeLine": "Size: {{size}}",
+  "viewProduct": "View product",
   "remove": "Remove",
   "continueWith": "Continue with @{{username}}",
   "sellerContactUnavailable": "Seller contact unavailable"

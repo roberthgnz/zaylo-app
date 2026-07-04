@@ -1,53 +1,51 @@
-import { NativeTabs } from 'expo-router/unstable-native-tabs';
-import { useColorScheme } from 'react-native';
+import { TabList, Tabs, TabSlot, TabTrigger } from 'expo-router/ui';
 
-import { Colors } from '@/constants/theme';
+import { BottomNavList, NavCircleButton, NavPillButton } from '@/components/bottom-nav';
 import { useCurrentUser } from '@/lib/current-user/CurrentUserProvider';
 
+/**
+ * Which tabs exist, for which role — the design/layout itself lives in
+ * `bottom-nav.tsx`. Kept as one custom nav (not `NativeTabs`) on every
+ * platform so the app always matches the web app's floating pill design
+ * (`components/BottomNav.tsx` in the root Next.js repo), not the OS's
+ * native tab bar chrome.
+ */
 export default function AppTabs() {
-  const scheme = useColorScheme();
-  const colors = Colors[scheme === 'unspecified' ? 'light' : scheme];
   const { user } = useCurrentUser();
   const isSeller = user?.profile?.roles?.includes('seller') ?? false;
 
   return (
-    <NativeTabs
-      backgroundColor={colors.background}
-      indicatorColor={colors.backgroundElement}
-      labelStyle={{ selected: { color: colors.text } }}>
-      <NativeTabs.Trigger name="index">
-        <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon
-          src={require('@/assets/images/tabIcons/home.png')}
-          renderingMode="template"
-        />
-      </NativeTabs.Trigger>
+    <Tabs>
+      <TabSlot style={{ height: '100%' }} />
+      <TabList asChild>
+        <BottomNavList>
+          <TabTrigger name="home" href="/" asChild>
+            <NavPillButton icon="home" />
+          </TabTrigger>
 
-      {isSeller ? (
-        <NativeTabs.Trigger name="dashboard-store">
-          <NativeTabs.Trigger.Label>Store</NativeTabs.Trigger.Label>
-          <NativeTabs.Trigger.Icon sf="bag" md="storefront" />
-        </NativeTabs.Trigger>
-      ) : null}
+          {isSeller ? (
+            <TabTrigger name="dashboard-store" href="/dashboard-store" asChild>
+              <NavPillButton icon="grid" />
+            </TabTrigger>
+          ) : null}
 
-      {isSeller ? (
-        <NativeTabs.Trigger name="new-item">
-          <NativeTabs.Trigger.Label>New Item</NativeTabs.Trigger.Label>
-          <NativeTabs.Trigger.Icon sf="plus.circle" md="add_circle" />
-        </NativeTabs.Trigger>
-      ) : null}
+          {isSeller ? (
+            <TabTrigger name="new-item" href="/new-item/format" asChild>
+              <NavPillButton icon="plus" />
+            </TabTrigger>
+          ) : null}
 
-      {isSeller ? (
-        <NativeTabs.Trigger name="assets">
-          <NativeTabs.Trigger.Label>Assets</NativeTabs.Trigger.Label>
-          <NativeTabs.Trigger.Icon sf="photo.on.rectangle" md="photo_library" />
-        </NativeTabs.Trigger>
-      ) : null}
+          {isSeller ? (
+            <TabTrigger name="assets" href="/assets" asChild>
+              <NavPillButton icon="image" />
+            </TabTrigger>
+          ) : null}
 
-      <NativeTabs.Trigger name="profile">
-        <NativeTabs.Trigger.Label>Profile</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="person.crop.circle" md="person" />
-      </NativeTabs.Trigger>
-    </NativeTabs>
+          <TabTrigger name="profile" href="/profile" asChild>
+            <NavCircleButton icon="user" />
+          </TabTrigger>
+        </BottomNavList>
+      </TabList>
+    </Tabs>
   );
 }

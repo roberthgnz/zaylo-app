@@ -4,6 +4,7 @@ import { ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Button } from "@/components/ui/button";
+import { BottomTabInset } from "@/constants/theme";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
 import { useItemsByUserQuery, useItemsByUserRealtime } from "@/lib/domains/catalog/queries";
 import { useBusinessAnalyticsSummaryQuery } from "@/lib/domains/analytics/queries";
@@ -32,7 +33,9 @@ export function DashboardHomeScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-background-light dark:bg-background-dark" edges={["top", "bottom"]}>
-      <ScrollView contentContainerClassName="gap-5 px-5 pt-6 pb-10">
+      <ScrollView
+        contentContainerClassName="gap-5 px-5 pt-6"
+        contentContainerStyle={{ paddingBottom: BottomTabInset }}>
         <View>
           <Text className="mb-1 text-2xl font-black text-text-light dark:text-text-dark">
             Hello, {user?.profile?.storeName || "seller"} 👋
@@ -52,6 +55,16 @@ export function DashboardHomeScreen() {
         ) : (
           <Button label="Add new item" onPress={() => router.push("/new-item/format")} />
         )}
+
+        {user?.profile?.username ? (
+          <Button
+            label="Go to store"
+            variant="outline"
+            onPress={() =>
+              router.push({ pathname: "/store/[username]", params: { username: user.profile!.username! } })
+            }
+          />
+        ) : null}
 
         <DashboardStats activeCount={counts.active} reservedCount={counts.reserved} soldCount={counts.sold} />
 

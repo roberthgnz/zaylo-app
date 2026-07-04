@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
+import { BottomTabInset } from "@/constants/theme";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
 import { itemPhotosToAssets, mergeUniqueAssets, formatSize, type DisplayAsset } from "@/lib/domains/assets/asset-utils";
 import { deleteAssetMutation, uploadAssetMutation, useAssetsQuery } from "@/lib/domains/assets/queries";
@@ -90,7 +91,7 @@ export default function AssetsScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-background-light dark:bg-background-dark" edges={["top", "bottom"]}>
-      <ScrollView contentContainerClassName="gap-4 px-5 pt-6 pb-10">
+      <ScrollView contentContainerClassName="gap-4 px-5 pt-6" contentContainerStyle={{ paddingBottom: BottomTabInset }}>
         <View className="flex-row items-center justify-between">
           <Text className="text-2xl font-black text-text-light dark:text-text-dark">Assets</Text>
           <Button label={isUploading ? "Uploading..." : "Upload"} isLoading={isUploading} onPress={handleUpload} size="sm" />

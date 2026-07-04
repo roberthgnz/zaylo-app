@@ -132,11 +132,28 @@ export default function StoreBagScreen() {
                     <Text className="mb-2 text-sm text-text-secondary-light dark:text-text-secondary-dark">
                       {formatBagPrice(item.price, item.currency)}
                     </Text>
-                    <Pressable onPress={() => handleRemove(item.bagItemId)}>
-                      <Text className="text-xs text-text-secondary-light dark:text-text-secondary-dark">
-                        {t("remove")}
-                      </Text>
-                    </Pressable>
+                    <View className="flex-row gap-4">
+                      <Pressable
+                        onPress={() =>
+                          router.push({
+                            pathname: "/store/[username]/product/[itemId]",
+                            params: {
+                              username,
+                              itemId: item.slug ?? ("itemId" in item ? item.itemId : item.id),
+                            },
+                          })
+                        }
+                      >
+                        <Text className="text-xs text-text-secondary-light underline dark:text-text-secondary-dark">
+                          {t("viewProduct")}
+                        </Text>
+                      </Pressable>
+                      <Pressable onPress={() => handleRemove(item.bagItemId)}>
+                        <Text className="text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                          {t("remove")}
+                        </Text>
+                      </Pressable>
+                    </View>
                   </View>
                 </View>
               );

@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Button } from "@/components/ui/button";
 import { ItemList } from "@/components/dashboard/ItemList";
+import { BottomTabInset } from "@/constants/theme";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
 import { useItemsByUserQuery, useItemsByUserRealtime } from "@/lib/domains/catalog/queries";
 
@@ -34,7 +35,7 @@ export default function DashboardStoreScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-background-light dark:bg-background-dark" edges={["top", "bottom"]}>
-      <ScrollView contentContainerClassName="gap-4 px-5 pt-6 pb-10">
+      <ScrollView contentContainerClassName="gap-4 px-5 pt-6" contentContainerStyle={{ paddingBottom: BottomTabInset }}>
         <View className="flex-row items-center justify-between">
           <Text className="text-2xl font-black text-text-light dark:text-text-dark">Store</Text>
           <Button label="New item" size="sm" onPress={() => router.push("/new-item/format")} />

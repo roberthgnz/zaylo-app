@@ -6,6 +6,7 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { groupBagItemsByStore } from "@/lib/bag";
+import { BottomTabInset } from "@/constants/theme";
 import { getMainMediaPreview } from "@/lib/core/media";
 import { clearBagMutation } from "@/lib/domains/bag/queries";
 import { useBagStore } from "@/lib/stores/useBagStore";
@@ -34,7 +35,7 @@ export default function BagScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-background-light dark:bg-background-dark" edges={["top", "bottom"]}>
-      <ScrollView contentContainerClassName="gap-4 px-5 pt-6 pb-10">
+      <ScrollView contentContainerClassName="gap-4 px-5 pt-6" contentContainerStyle={{ paddingBottom: BottomTabInset }}>
         <Pressable onPress={() => router.push("/profile")} className="flex-row items-center gap-2">
           <Text className="text-text-secondary-light dark:text-text-secondary-dark">←</Text>
           <Text className="text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark">

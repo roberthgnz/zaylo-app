@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getItemById, getItemsByUserId, subscribeItemsByUserId } from "@/lib/domains/catalog/client";
+import { getItemById, getItemBySlug, getItemsByUserId, subscribeItemsByUserId } from "@/lib/domains/catalog/client";
 import type { ZayloItem } from "@/lib/domains/catalog/types";
 
 type ItemsByUserOptions = {
@@ -43,18 +43,26 @@ export const catalogQueryKeys = {
     return ["items", "by-user", userId, normalized] as const;
   },
   itemById: (itemId: string) => ["items", "by-id", itemId] as const,
+  itemBySlug: (slug: string) => ["items", "by-slug", slug] as const,
 };
 
 export function setItemStatusInCaches(
   queryClient: QueryClient,
-  values: { itemId: string; userId?: string; status: ZayloItem["status"] }
+  values: { itemId: string; slug?: string; userId?: string; status: ZayloItem["status"] }
 ) {
-  const { itemId, userId, status } = values;
+  const { itemId, slug, userId, status } = values;
 
   queryClient.setQueryData<ZayloItem | null | undefined>(
     catalogQueryKeys.itemById(itemId),
     (currentItem) => (currentItem ? { ...currentItem, status } : currentItem)
   );
+
+  if (slug) {
+    queryClient.setQueryData<ZayloItem | null | undefined>(
+      catalogQueryKeys.itemBySlug(slug),
+      (currentItem) => (currentItem ? { ...currentItem, status } : currentItem)
+    );
+  }
 
   if (userId) {
     queryClient.setQueriesData<ZayloItem[]>(
@@ -106,5 +114,13 @@ export function useItemByIdQuery(itemId?: string) {
     queryKey: itemId ? catalogQueryKeys.itemById(itemId) : (["items", "by-id", "missing-id"] as const),
     queryFn: () => getItemById(itemId!),
     enabled: Boolean(itemId),
+  });
+}
+
+export function useItemBySlugQuery(slug?: string) {
+  return useQuery({
+    queryKey: slug ? catalogQueryKeys.itemBySlug(slug) : (["items", "by-slug", "missing-slug"] as const),
+    queryFn: () => getItemBySlug(slug!),
+    enabled: Boolean(slug),
   });
 }

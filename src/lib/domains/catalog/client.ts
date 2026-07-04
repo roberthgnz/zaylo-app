@@ -24,6 +24,13 @@ export async function getItemById(itemId: string) {
   return item;
 }
 
+export async function getItemBySlug(slug: string) {
+  const { item } = await apiRequest<{ item: ZayloItem | null }>(
+    `/api/items/by-slug/${encodeURIComponent(slug)}`
+  );
+  return item;
+}
+
 export async function getItemsByUserId(
   userId: string,
   options: { limit?: number; orderByCreated?: boolean } = {}
