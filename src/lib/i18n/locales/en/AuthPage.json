@@ -1,0 +1,23 @@
+{
+  "login": "Login",
+  "signup": "Sign up",
+  "loginSubtitle": "Enter your credentials to continue.",
+  "signupSubtitle": "Create your account to get started.",
+  "emailAddress": "Email Address",
+  "emailPlaceholder": "your@email.com",
+  "password": "Password",
+  "continue": "Continue",
+  "createAccount": "Create account",
+  "forgotPassword": "Forgot password?",
+  "orContinueWith": "OR CONTINUE WITH",
+  "atLeast8": "At least 8 characters",
+  "processing": "Processing...",
+  "checkEmail": "Check your email to confirm your account, then log in.",
+  "signInFailed": "Sign in failed. Please try again.",
+  "continueWithGoogle": "Continue with Google",
+  "signInWithGoogle": "Sign in with Google",
+  "agreeTermsPrefix": "By continuing, you agree to our",
+  "terms": "Terms",
+  "and": "and",
+  "privacyPolicy": "Privacy Policy"
+}

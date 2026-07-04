@@ -1,0 +1,23 @@
+{
+  "login": "Iniciar sesión",
+  "signup": "Crear cuenta",
+  "loginSubtitle": "Ingresa tus credenciales para continuar.",
+  "signupSubtitle": "Crea tu cuenta para empezar.",
+  "emailAddress": "Correo Electrónico",
+  "emailPlaceholder": "tu@correo.com",
+  "password": "Contraseña",
+  "continue": "Continuar",
+  "createAccount": "Crear cuenta",
+  "forgotPassword": "¿Olvidaste tu contraseña?",
+  "orContinueWith": "O CONTINÚA CON",
+  "atLeast8": "Al menos 8 caracteres",
+  "processing": "Procesando...",
+  "checkEmail": "Revisa tu correo para confirmar tu cuenta y luego inicia sesión.",
+  "signInFailed": "Error al iniciar sesión. Por favor, inténtalo de nuevo.",
+  "continueWithGoogle": "Continuar con Google",
+  "signInWithGoogle": "Iniciar sesión con Google",
+  "agreeTermsPrefix": "Al continuar, aceptas nuestros",
+  "terms": "Términos",
+  "and": "y",
+  "privacyPolicy": "Política de Privacidad"
+}
