@@ -98,7 +98,7 @@ stays web-only:
 
 - **Navigation:** `app-tabs.tsx`/`.web.tsx` are now role-aware. Sellers (`user.profile.roles.includes('seller')`) get three more tabs — Store, New Item, Assets (`sf`/`md` icon names, no new PNGs) — registered conditionally; buyers don't see them at all, matching web's own role-gated `BottomNav`. The **Home tab is also role-aware**: sellers get the real dashboard home (`DashboardHomeScreen`); buyers still get the Phase 0 Expo boilerplate (`src/components/home-placeholder.tsx`, extracted verbatim from the old `index.tsx`) since fixing the buyer home screen isn't in scope here and Profile already covers buyers (Phase 3).
 - **Domain layer:** `src/lib/domains/{catalog,analytics,assets}/{client,queries,types}.ts` — verbatim ports (thin `apiRequest` wrappers + react-query hooks, same pattern as bag/onboarding/profile). Added `ZayloItem`/`ItemInput`/`ItemStatus`/`BusinessAnalyticsSummary`/`ZayloAsset` to `src/lib/zaylo/types.ts`. Dropped `getItemBySlug`/`useItemBySlugQuery` and the `setItemStatusInCaches` cross-update into `["stores","by-username"]` caches — both are public-store-only concerns, not needed until that phase exists.
-- `src/lib/core/storage.ts` — new `uploadPublicFile(path, {uri, name, type})`. Web builds a `Blob` from a `blob:`/`data:` URL; RN's `FormData` instead takes a `{uri, name, type}` object directly for the file part (the standard RN multipart-upload pattern) — same `/api/storage/upload` endpoint, no backend change needed.
+- `src/lib/core/storage.ts` — new `uploadPublicFile(path, {uri, name, type})` + `localFileToBlob()`. Web builds a `Blob` straight from a `blob:`/`data:` URL; RN resolves a local file `uri` to a real `Blob` via `fetch(uri).blob()` first (works uniformly on native and web preview, unlike passing a raw `{uri, name, type}` object straight to `FormData.append` — the latter is a common RN native pattern but react-native-web's `fetch`/`FormData` doesn't understand the bare "uri" file convention, so it would've silently failed in web preview specifically). Same `/api/storage/upload` endpoint, no backend change needed.
 - **Shared item-list UI** (`src/components/dashboard/{ItemCard,ItemStatusBadge,ItemDetailSheet,ItemList}.tsx`) — one component covers what web splits across `DashboardItemList` + the seller's own store-catalog view: status-filter chips, tap-to-select (long-press or tap-in-selection-mode) with a bulk action bar (archive/delete), and a single-item detail bottom sheet (`Modal`, replacing `vaul`) with edit/status-toggle/duplicate/delete. Delete confirmations use RN's built-in `Alert.alert` instead of a custom confirmation dialog component.
 - **Dashboard home** (`(tabs)/index.tsx` → `DashboardHomeScreen`) — stats tiles (active/reserved/sold), an analytics funnel widget (`useBusinessAnalyticsSummaryQuery(7)`, `Share.share()` instead of `navigator.share()`+clipboard fallback), and the shared `ItemList`.
 - **New item** (`(tabs)/new-item/{format,details}.tsx`) + **item edit** (`(tabs)/dashboard-store/[itemId]/edit.tsx`) both render one shared `ItemForm` component (`src/components/dashboard/ItemForm.tsx`) — same zod schema (`item-form-schema.ts`), same upload orchestration (`upload-item-photos.ts`: uploads local picks, passes through already-`https://` URLs unchanged for edits).
@@ -176,11 +176,15 @@ web runtime error:
 
 `Cannot manually set color scheme, as dark mode is type 'media'...`
 
-The current `tailwind.config.js` sets `darkMode: 'class'`, which matches the
-runtime behavior NativeWind expects on web preview and removes the noisy dev
-overlay. Native runtime theming still follows the device through
-`useColorScheme()` in `src/app/_layout.tsx` and the dark Tailwind variants
-already present throughout the app.
+`tailwind.config.js` now sets `darkMode: 'class'`, which removes the dev
+overlay. That switch alone doesn't auto-follow the OS the way `'media'` did,
+though — verified via web preview that `document.documentElement.className`
+stayed empty under a dark `colorScheme` until a bridge was added: `src/app/_layout.tsx`
+now calls NativeWind's `colorScheme.set()` inside a `useEffect` keyed on RN's
+own `useColorScheme()`, so the app still auto-follows the device (matches
+`app.json`'s `userInterfaceStyle: "automatic"`) instead of requiring a manual
+theme toggle. Re-verified after the fix: `documentElement.className` is
+`"dark"` under a dark `colorScheme` and the background renders black.
 
 ## Verification checklist
 

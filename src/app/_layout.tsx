@@ -2,6 +2,8 @@ import '../global.css';
 
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import { colorScheme as nativewindColorScheme } from 'nativewind';
+import { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { I18nextProvider } from 'react-i18next';
@@ -42,6 +44,16 @@ function RootNavigator() {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+
+  // tailwind.config.js sets darkMode: 'class' (avoids a NativeWind web-preview
+  // dev-only crash under 'media' — see migration-roadmap.md). 'class' mode
+  // doesn't auto-follow the OS the way 'media' did, so bridge it here: this
+  // app wants automatic theming (app.json userInterfaceStyle: "automatic"),
+  // not a manual toggle, so mirror RN's own useColorScheme() into NativeWind's
+  // class flag on every change instead of leaving dark: classes dead.
+  useEffect(() => {
+    nativewindColorScheme.set(colorScheme === 'dark' ? 'dark' : 'light');
+  }, [colorScheme]);
 
   return (
     <SafeAreaProvider>
