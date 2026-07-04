@@ -1,0 +1,12 @@
+{
+  "title": "Bag",
+  "eyebrow": "Multi-store bag",
+  "heading": "Your bags",
+  "clear": "Clear",
+  "emptyTitle": "Your bag is empty.",
+  "emptyDescription": "Add items from a public store and each seller will get its own checkout bag.",
+  "itemsCount_one": "{{count}} item",
+  "itemsCount_other": "{{count}} items",
+  "noImage": "No image",
+  "groupFooter": "Checkout separately with this seller on WhatsApp."
+}

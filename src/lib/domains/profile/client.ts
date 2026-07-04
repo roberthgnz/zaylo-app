@@ -23,6 +23,18 @@ export async function getUserProfile(userId: string) {
   return profile;
 }
 
+export async function isUsernameAvailable(username: string, currentUserId?: string) {
+  const searchParams = new URLSearchParams({ username });
+  if (currentUserId) {
+    searchParams.set("currentUserId", currentUserId);
+  }
+
+  const { available } = await apiRequest<{ available: boolean }>(
+    `/api/profiles/username-available?${searchParams.toString()}`
+  );
+  return available;
+}
+
 export function subscribeUserProfile(
   userId: string,
   onChange: (profile: ZayloUserProfile | null) => void,

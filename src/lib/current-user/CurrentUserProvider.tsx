@@ -1,5 +1,6 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -16,6 +17,7 @@ import { toAppUser, type AppUser } from "./current-user";
 type CurrentUserState = {
   user: AppUser | null;
   loading: boolean;
+  refreshProfile: () => Promise<void>;
 };
 
 type AuthUserLike = Pick<User, "id" | "email">;
@@ -129,7 +131,19 @@ function useCurrentUserState(): CurrentUserState {
     };
   }, []);
 
-  return useMemo(() => ({ user, loading }), [loading, user]);
+  const refreshProfile = useCallback(async () => {
+    const uid = userIdRef.current;
+    if (!uid) return;
+
+    try {
+      const profile = await getUserProfile(uid);
+      setUser((prev) => (prev ? { ...prev, profile } : prev));
+    } catch (error) {
+      console.error("Error refreshing user profile:", error);
+    }
+  }, []);
+
+  return useMemo(() => ({ user, loading, refreshProfile }), [loading, refreshProfile, user]);
 }
 
 export function CurrentUserProvider({ children }: { children: ReactNode }) {

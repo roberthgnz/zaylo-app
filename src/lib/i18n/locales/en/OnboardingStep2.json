@@ -1,0 +1,16 @@
+{
+  "step": "STEP 2 OF 2",
+  "title": "Connect & Launch",
+  "description": "Add your contact info so buyers can reach you and close sales.",
+  "whatsapp": "WhatsApp",
+  "whatsappHint": "Required — buyers contact you here to complete purchases.",
+  "socialProfiles": "Social Profiles",
+  "instagram": "Instagram (optional)",
+  "tiktok": "TikTok (optional)",
+  "username": "username",
+  "finishing": "Finishing...",
+  "finish": "Finish",
+  "invalidPhoneFormat": "Invalid phone number format.",
+  "submitErrorTitle": "Unable to connect profile",
+  "back": "Back"
+}

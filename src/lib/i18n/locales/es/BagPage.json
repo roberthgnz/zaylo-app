@@ -1,0 +1,12 @@
+{
+  "title": "Bolsa",
+  "eyebrow": "Bolsa multi-tienda",
+  "heading": "Tus bolsas",
+  "clear": "Limpiar",
+  "emptyTitle": "Tu bolsa está vacía.",
+  "emptyDescription": "Agrega artículos desde una tienda pública y cada vendedor tendrá su propia bolsa de checkout.",
+  "itemsCount_one": "{{count}} artículo",
+  "itemsCount_other": "{{count}} artículos",
+  "noImage": "Sin imagen",
+  "groupFooter": "Finaliza por separado con este vendedor en WhatsApp."
+}

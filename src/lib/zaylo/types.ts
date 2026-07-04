@@ -1,8 +1,8 @@
 /**
- * Scoped subset of the web app's lib/zaylo/types.ts — profile-only.
- * Closet, item, bag, asset, analytics and lead types are intentionally
+ * Scoped subset of the web app's lib/zaylo/types.ts — profile + bag.
+ * Closet, item (catalog), asset, analytics and lead types are intentionally
  * NOT ported here (out of scope: closet is excluded entirely; the rest
- * belong to later phases — dashboard/bag/public-store).
+ * belong to later phases — dashboard/public-store).
  */
 
 export type UserRole = "buyer" | "seller" | "admin" | "showcase";
@@ -59,4 +59,36 @@ export type ZayloUserProfile = {
   onboardingComplete: boolean;
   createdAt?: string;
   updatedAt?: string;
+};
+
+export type ZayloBagItem = {
+  bagItemId: string;
+  itemId: string;
+  slug?: string;
+  sellerId: string;
+  sellerUsername: string;
+  name: string;
+  selectedSize: string | null;
+  price: number;
+  mainPhoto?: string;
+  mainMediaType?: "image" | "video";
+  mainMediaPoster?: string;
+  sellerWhatsapp: string;
+  currency: string;
+  addedAt: string;
+};
+
+export type ZayloBagStoreGroup = {
+  sellerId: string;
+  sellerUsername: string;
+  sellerWhatsapp: string;
+  currency: string;
+  items: ZayloBagItem[];
+};
+
+export type ZayloBag = {
+  id: string;
+  buyerUserId: string;
+  items: ZayloBagItem[];
+  storeGroups: ZayloBagStoreGroup[];
 };

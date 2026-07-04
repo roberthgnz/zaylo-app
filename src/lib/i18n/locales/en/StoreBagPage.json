@@ -1,0 +1,12 @@
+{
+  "title": "Bag",
+  "heading": "Store bag",
+  "clear": "Clear",
+  "emptyTitle": "This store bag is empty.",
+  "backToStore": "Back to bag",
+  "noImage": "No image",
+  "sizeLine": "Size: {{size}}",
+  "remove": "Remove",
+  "continueWith": "Continue with @{{username}}",
+  "sellerContactUnavailable": "Seller contact unavailable"
+}

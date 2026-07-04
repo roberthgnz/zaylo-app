@@ -1,0 +1,16 @@
+{
+  "step": "PASO 2 DE 2",
+  "title": "Conectar y Lanzar",
+  "description": "Agrega tu información de contacto para que los compradores puedan hablarte.",
+  "whatsapp": "WhatsApp",
+  "whatsappHint": "Requerido — aquí te contactarán los compradores.",
+  "socialProfiles": "Redes Sociales",
+  "instagram": "Instagram (opcional)",
+  "tiktok": "TikTok (opcional)",
+  "username": "usuario",
+  "finishing": "Finalizando...",
+  "finish": "Terminar",
+  "invalidPhoneFormat": "Formato de número de teléfono inválido.",
+  "submitErrorTitle": "No se pudo conectar el perfil",
+  "back": "Atrás"
+}

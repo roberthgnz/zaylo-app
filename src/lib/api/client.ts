@@ -1,4 +1,25 @@
-const API_BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL ?? "";
+import Constants from "expo-constants";
+
+// In dev, "localhost" in EXPO_PUBLIC_API_BASE_URL only resolves on the device
+// itself — unreachable from an Android emulator/physical device, which need
+// the dev machine's actual LAN address (or 10.0.2.2 for the AVD emulator).
+// Expo already knows that address (it's how Metro/the dev client connects),
+// so derive it from there instead of hardcoding one per device.
+function resolveApiBaseUrl() {
+  const configured = process.env.EXPO_PUBLIC_API_BASE_URL ?? "";
+
+  if (__DEV__ && /^https?:\/\/localhost(:|\/|$)/.test(configured)) {
+    const hostUri = Constants.expoConfig?.hostUri ?? Constants.expoGoConfig?.debuggerHost;
+    const devHost = hostUri?.split(":")[0];
+    if (devHost) {
+      return configured.replace("localhost", devHost);
+    }
+  }
+
+  return configured;
+}
+
+const API_BASE_URL = resolveApiBaseUrl();
 
 type ApiEnvelope<T> = { data?: T; error?: string | { message?: string } } | T;
 

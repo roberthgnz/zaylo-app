@@ -1,0 +1,12 @@
+{
+  "title": "Bolsa",
+  "heading": "Bolsa de tienda",
+  "clear": "Limpiar",
+  "emptyTitle": "Esta bolsa de tienda está vacía.",
+  "backToStore": "Volver a la bolsa",
+  "noImage": "Sin imagen",
+  "sizeLine": "Talla: {{size}}",
+  "remove": "Eliminar",
+  "continueWith": "Continuar con @{{username}}",
+  "sellerContactUnavailable": "Contacto del vendedor no disponible"
+}

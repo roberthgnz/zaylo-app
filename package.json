@@ -25,6 +25,7 @@
     "expo-system-ui": "~57.0.0",
     "expo-web-browser": "~57.0.0",
     "i18next": "^26.3.4",
+    "libphonenumber-js": "^1.13.8",
     "nativewind": "^4.2.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
