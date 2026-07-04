@@ -4,6 +4,21 @@ Source of truth for what has been ported from the Next.js web app (root repo)
 into this Expo/React Native app, what's deliberately excluded, and what's
 deferred to future passes. Update this file at the end of every phase.
 
+## Current migration status
+
+**Migration complete through Phase 5.** The native app now has the shared
+foundation, auth, onboarding, buyer profile/settings, bag, and seller dashboard
+surfaces that were selected for the first migration arc.
+
+The remaining items below are no longer blockers for this arc. They are an
+explicit product/engineering backlog split into:
+
+- **Release blockers**: required before a public app-store release or before
+  buyers can complete the marketplace loop in native.
+- **Post-release parity**: valuable web parity or polish that can ship after the
+  core native marketplace works.
+- **Deliberately excluded**: areas that should stay out of the native port.
+
 ## Hard exclusion: `closet`
 
 Nothing under the following paths was read, ported, or referenced. No
@@ -125,19 +140,27 @@ out of `src/app/` entirely — they now live in `src/lib/domains/onboarding/` an
 `src/lib/navigation/`. Worth remembering for every future phase (AGENTS.md's
 "Expo HAS CHANGED" warning was right to flag this).
 
-## Deferred to future phases
+## Remaining backlog
 
-| Area | Web reference | Why deferred |
+### Release blockers
+
+| Area | Web reference | Why it remains |
 |---|---|---|
-| Change password (from settings) | Web reuses `/forgot-password` | Needs its own screen calling `updateUser({password})` directly — `(auth)` group is unreachable while logged in |
-| Become a seller (role upgrade) | Web reuses `/onboarding` | Needs a role-upgrade path that can re-enter `(onboarding)` for an already-`onboardingComplete` profile |
 | Public store (storefront, product detail, store bag) | `app/[locale]/[username]/**` | Depends on catalog domain port (now done) — also unblocks add-to-bag and bag's "view product" link. Shares components with `dashboard/store/[username]/**` per the dual-purpose note above |
+| Legal pages (privacy, terms) | `app/[locale]/privacy`, `app/[locale]/terms` | Simple static screens, low priority during dev but required for app store submission |
+| Live backend/device verification | All migrated phases | Authenticated onboarding, profile/settings, bag, item creation/upload, realtime catalog updates, analytics, and checkout should be exercised against the real Supabase/API stack before release |
+| Change password (from settings) | Web reuses `/forgot-password` | Needs its own screen calling `updateUser({password})` directly — `(auth)` group is unreachable while logged in |
+
+### Post-release parity
+
+| Area | Web reference | Why it remains |
+|---|---|---|
+| Become a seller (role upgrade) | Web reuses `/onboarding` | Needs a role-upgrade path that can re-enter `(onboarding)` for an already-`onboardingComplete` profile |
 | Item variants (option/value pairs) | `item-details-form/VariantsField.tsx` | Nested option→value picker UI, dropped for this pass — `ItemInput.variants` unpopulated |
 | Background removal / "prettify" AI photo enhancement | `PhotosSection.tsx` | Needs a net-new ML dependency (WASM-based on web), not a straightforward port |
 | Video as item main-media | `ImageUploadSlot.tsx`, `video-thumbnails.ts` | Needs frame-extraction capability (`expo-video-thumbnails`-equivalent) not yet in this app |
 | Dashboard i18n (en/es copy) | `NewItem`/`DashboardPage`/`Settings`/`AssetsPage`/`AnalyticsPage` namespaces | English-only for now — cut to keep this already-huge phase shippable; every other phase is fully localized |
 | `ProductMedia` video-rendering branch | `components/ProductMedia.tsx` | No RN screen renders a *live* video yet (bag/dashboard only ever show poster stills); add via `expo-video` when one does |
-| Legal pages (privacy, terms) | `app/[locale]/privacy`, `app/[locale]/terms` | Simple static screens, low priority but required for app store submission — do before release, not blocking dev |
 | Google OAuth | `auth/page.tsx` `signInWithOAuth` | Needs `expo-auth-session` deep-link callback flow |
 
 ## Dependency compatibility (condensed)
@@ -146,26 +169,18 @@ out of `src/app/` entirely — they now live in `src/lib/domains/onboarding/` an
 |---|---|
 | zustand, @tanstack/react-query, zod, react-hook-form, @hookform/resolvers, @supabase/supabase-js, i18next/react-i18next, libphonenumber-js, class-variance-authority | framer-motion/motion → react-native-reanimated; shadcn/@radix-ui/cmdk → NativeWind primitives (this pass) / tamagui-restyle if the primitive set grows; vaul → RN Modal or `@gorhom/bottom-sheet`; sonner → a RN toast lib; recharts → Victory Native or react-native-chart-kit; lucide-react → lucide-react-native or expo-symbols; tailwindcss v4 (web) → separate NativeWind + tailwindcss v3 config here (independent packages, no conflict); react-easy-crop → expo-image-picker/native crop; onnxruntime-web / @imgly/background-removal → onnxruntime-react-native or drop (closet-only, N/A here); next-intl/next-i18next → i18next/react-i18next directly (done) |
 
-## Known dev-only quirk (web preview, not native)
+## Known dev-only quirk resolved: NativeWind dark mode
 
-On `expo start --web` (dev mode only), NativeWind's web runtime
-(`react-native-css-interop/dist/runtime/web/color-scheme.js`) throws
-`Cannot manually set color scheme, as dark mode is type 'media'...` from its
-own internal `MutationObserver` callback the first time it observes the
-injected stylesheet's darkMode flag. Confirmed by grepping all of
-`node_modules` — nothing in application code (ours, expo-router, or
-react-navigation) calls `colorScheme.set`/`.toggle` anywhere; it's NativeWind
-self-triggering against its own guard. It only surfaces as Expo's dev LogBox
-overlay (never appears in production/native builds — native uses a
-completely different file, `runtime/native/appearance-observables.js`, with
-no such throw) and doesn't block any functionality underneath — all four
-auth screens render and behave correctly with the overlay dismissed. Since
-`darkMode: 'media'` (auto-follow OS) is the correct choice for the real
-native target (matches `app.json`'s `userInterfaceStyle: "automatic"`),
-this wasn't changed. If it becomes noisy during web-preview dev sessions,
-revisit with an upstream NativeWind issue/version bump — not a reason to
-switch to `class`-based dark mode, which would require manual toggling logic
-we don't otherwise need.
+Earlier web-preview runs (`expo start --web`, dev mode only) hit NativeWind's
+web runtime error:
+
+`Cannot manually set color scheme, as dark mode is type 'media'...`
+
+The current `tailwind.config.js` sets `darkMode: 'class'`, which matches the
+runtime behavior NativeWind expects on web preview and removes the noisy dev
+overlay. Native runtime theming still follows the device through
+`useColorScheme()` in `src/app/_layout.tsx` and the dark Tailwind variants
+already present throughout the app.
 
 ## Verification checklist
 
