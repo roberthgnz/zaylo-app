@@ -11,6 +11,7 @@ export default function SettingsScreen() {
   const router = useRouter();
   const { user } = useCurrentUser();
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const isSeller = user?.profile?.roles?.includes("seller") ?? false;
 
   const handleSignOut = async () => {
     setIsSigningOut(true);
@@ -59,13 +60,28 @@ export default function SettingsScreen() {
             <Text className="text-sm font-semibold text-text-light dark:text-text-dark">Role</Text>
             <View className="rounded-full bg-background-element-light px-3 py-1 dark:bg-neutral-800">
               <Text className="text-xs font-black uppercase tracking-widest text-text-secondary-light dark:text-text-secondary-dark">
-                Buyer
+                {isSeller ? "Seller" : "Buyer"}
               </Text>
             </View>
           </View>
 
           <LanguageSelector />
         </View>
+
+        {isSeller ? (
+          <Pressable
+            onPress={() => router.push("/profile/store-settings")}
+            className="flex-row items-center justify-between rounded-3xl border border-neutral-200 bg-background-element-light p-4 dark:border-neutral-800 dark:bg-background-element-dark"
+          >
+            <View>
+              <Text className="text-sm font-bold text-text-light dark:text-text-dark">Store settings</Text>
+              <Text className="text-xs text-text-secondary-light dark:text-text-secondary-dark">
+                Branding, shipping policy, social links.
+              </Text>
+            </View>
+            <Text className="text-text-secondary-light dark:text-text-secondary-dark">›</Text>
+          </Pressable>
+        ) : null}
 
         <View className="rounded-3xl border border-neutral-200 bg-background-element-light p-5 dark:border-neutral-800 dark:bg-background-element-dark">
           <Text className="mb-4 text-xl font-bold text-text-light dark:text-text-dark">Actions</Text>

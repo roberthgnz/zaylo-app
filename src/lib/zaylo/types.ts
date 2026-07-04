@@ -1,8 +1,8 @@
 /**
- * Scoped subset of the web app's lib/zaylo/types.ts — profile + bag.
- * Closet, item (catalog), asset, analytics and lead types are intentionally
- * NOT ported here (out of scope: closet is excluded entirely; the rest
- * belong to later phases — dashboard/public-store).
+ * Scoped subset of the web app's lib/zaylo/types.ts — profile + bag + catalog
+ * (items) + analytics + assets. Closet types are intentionally NOT ported
+ * (permanent exclusion). Public-store-only types (ZayloPublicClosetItem etc,
+ * store-by-username aggregates) stay out until that phase lands.
  */
 
 export type UserRole = "buyer" | "seller" | "admin" | "showcase";
@@ -91,4 +91,71 @@ export type ZayloBag = {
   buyerUserId: string;
   items: ZayloBagItem[];
   storeGroups: ZayloBagStoreGroup[];
+};
+
+export type ItemStatus = "available" | "reserved" | "sold" | "archived";
+
+export const ITEM_STATUS_VALUES: ItemStatus[] = ["available", "reserved", "sold", "archived"];
+
+export type ZayloItem = {
+  id: string;
+  slug?: string;
+  userId: string;
+  name: string;
+  price: number;
+  stock: number;
+  category: string;
+  size: string[];
+  brand?: string;
+  condition?: string;
+  description?: string;
+  tags?: string;
+  sessionType?: string;
+  promoType?: string;
+  requiresShipping?: boolean;
+  shippingWeightKg?: number;
+  collections?: string;
+  variants?: string;
+  mainPhoto?: string;
+  mainMediaType?: "image" | "video";
+  mainMediaPoster?: string;
+  mainMediaThumbnails?: string[];
+  photo1?: string;
+  photo2?: string;
+  photo3?: string;
+  photo4?: string;
+  status: ItemStatus;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type ItemInput = Omit<ZayloItem, "id" | "createdAt" | "updatedAt"> & {
+  id?: string;
+};
+
+export type BusinessAnalyticsSummary = {
+  days: number;
+  totals: {
+    viewStore: number;
+    viewProduct: number;
+    addToBag: number;
+    startWhatsappCheckout: number;
+  };
+  conversionRates: {
+    addToBagFromProductView: number;
+    whatsappFromAddToBag: number;
+    whatsappFromProductView: number;
+  };
+};
+
+export type ZayloAsset = {
+  id: string;
+  userId: string;
+  url: string;
+  storagePath: string;
+  type: "image" | "video";
+  name?: string;
+  size?: number;
+  mimeType?: string;
+  createdAt: string;
 };

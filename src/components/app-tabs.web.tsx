@@ -14,8 +14,12 @@ import { ThemedText } from './themed-text';
 import { ThemedView } from './themed-view';
 
 import { Colors, MaxContentWidth, Spacing } from '@/constants/theme';
+import { useCurrentUser } from '@/lib/current-user/CurrentUserProvider';
 
 export default function AppTabs() {
+  const { user } = useCurrentUser();
+  const isSeller = user?.profile?.roles?.includes('seller') ?? false;
+
   return (
     <Tabs>
       <TabSlot style={{ height: '100%' }} />
@@ -24,6 +28,21 @@ export default function AppTabs() {
           <TabTrigger name="home" href="/" asChild>
             <TabButton>Home</TabButton>
           </TabTrigger>
+          {isSeller ? (
+            <TabTrigger name="dashboard-store" href="/dashboard-store" asChild>
+              <TabButton>Store</TabButton>
+            </TabTrigger>
+          ) : null}
+          {isSeller ? (
+            <TabTrigger name="new-item" href="/new-item/format" asChild>
+              <TabButton>New Item</TabButton>
+            </TabTrigger>
+          ) : null}
+          {isSeller ? (
+            <TabTrigger name="assets" href="/assets" asChild>
+              <TabButton>Assets</TabButton>
+            </TabTrigger>
+          ) : null}
           <TabTrigger name="profile" href="/profile" asChild>
             <TabButton>Profile</TabButton>
           </TabTrigger>

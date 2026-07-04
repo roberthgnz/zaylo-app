@@ -23,6 +23,13 @@ export async function getUserProfile(userId: string) {
   return profile;
 }
 
+export async function updateUserProfile(userId: string, values: Partial<ZayloUserProfile>) {
+  await apiRequest<{ ok: true }>(`/api/profiles/${encodeURIComponent(userId)}`, {
+    method: "PATCH",
+    body: JSON.stringify(values),
+  });
+}
+
 export async function isUsernameAvailable(username: string, currentUserId?: string) {
   const searchParams = new URLSearchParams({ username });
   if (currentUserId) {

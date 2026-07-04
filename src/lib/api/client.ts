@@ -1,4 +1,5 @@
 import Constants from "expo-constants";
+import { supabase } from "@/lib/supabase/client";
 
 // In dev, "localhost" in EXPO_PUBLIC_API_BASE_URL only resolves on the device
 // itself — unreachable from an Android emulator/physical device, which need
@@ -43,12 +44,25 @@ function getErrorMessage(payload: ApiEnvelope<unknown>) {
 }
 
 export async function apiRequest<T>(path: string, init?: RequestInit): Promise<T> {
+  const headers = new Headers(init?.headers);
+
+  if (!(init?.body instanceof FormData) && !headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json");
+  }
+
+  if (!headers.has("Authorization")) {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (session?.access_token) {
+      headers.set("Authorization", `Bearer ${session.access_token}`);
+    }
+  }
+
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...init,
-    headers: {
-      ...(init?.body instanceof FormData ? {} : { "Content-Type": "application/json" }),
-      ...init?.headers,
-    },
+    headers,
   });
 
   const payload = (await response.json().catch(() => ({}))) as ApiEnvelope<T>;
