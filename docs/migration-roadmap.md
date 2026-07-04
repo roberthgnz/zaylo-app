@@ -11,14 +11,11 @@ has the shared foundation, auth, onboarding, buyer profile/settings, bag,
 seller dashboard, public storefront/product-detail, and in-session
 change-password surfaces that were selected for the first migration arc.
 
-The remaining items below are no longer blockers for this arc. They are an
-explicit product/engineering backlog split into:
-
-- **Release blockers**: required before a public app-store release or before
-  buyers can complete the marketplace loop in native.
-- **Post-release parity**: valuable web parity or polish that can ship after the
-  core native marketplace works.
-- **Deliberately excluded**: areas that should stay out of the native port.
+**This migration arc is closed.** The items that were previously tracked as
+backlog (release blockers + post-release parity) are now marked deliberately
+excluded from this arc — see "Excluded from this migration arc" below. Any of
+them can be picked back up as its own future phase if prioritized later, but
+none are in flight.
 
 ## Hard exclusion: `closet`
 
@@ -160,25 +157,23 @@ out of `src/app/` entirely — they now live in `src/lib/domains/onboarding/` an
 `src/lib/navigation/`. Worth remembering for every future phase (AGENTS.md's
 "Expo HAS CHANGED" warning was right to flag this).
 
-## Remaining backlog
+## Excluded from this migration arc
 
-### Release blockers
+Everything below was in flight as backlog through the Change password phase.
+The arc is now closed with these deliberately left out — not stubbed, not
+half-built, just not started. Each can become its own future phase if
+reprioritized.
 
-| Area | Web reference | Why it remains |
+| Area | Web reference | Why it's excluded |
 |---|---|---|
-| Legal pages (privacy, terms) | `app/[locale]/privacy`, `app/[locale]/terms` | Simple static screens, low priority during dev but required for app store submission |
-| Live backend/device verification | All migrated phases | Authenticated onboarding, profile/settings, bag, item creation/upload, realtime catalog updates, analytics, checkout, and change-password should be exercised against the real Supabase/API stack before release |
-
-### Post-release parity
-
-| Area | Web reference | Why it remains |
-|---|---|---|
+| Legal pages (privacy, terms) | `app/[locale]/privacy`, `app/[locale]/terms` | Simple static screens; needed for eventual app-store submission but not for this arc |
+| Live backend/device verification | All migrated phases | Authenticated onboarding, profile/settings, bag, item creation/upload, realtime catalog updates, analytics, checkout, and change-password all still need exercising against the real Supabase/API stack — flagged throughout, not done in this arc |
 | Become a seller (role upgrade) | Web reuses `/onboarding` | Needs a role-upgrade path that can re-enter `(onboarding)` for an already-`onboardingComplete` profile |
 | Item variants (option/value pairs) | `item-details-form/VariantsField.tsx` | Nested option→value picker UI, dropped for this pass — `ItemInput.variants` unpopulated |
 | Background removal / "prettify" AI photo enhancement | `PhotosSection.tsx` | Needs a net-new ML dependency (WASM-based on web), not a straightforward port |
 | Video as item main-media | `ImageUploadSlot.tsx`, `video-thumbnails.ts` | Needs frame-extraction capability (`expo-video-thumbnails`-equivalent) not yet in this app |
-| Dashboard i18n (en/es copy) | `NewItem`/`DashboardPage`/`Settings`/`AssetsPage`/`AnalyticsPage` namespaces | English-only for now — cut to keep this already-huge phase shippable; every other phase is fully localized |
-| `ProductMedia` video-rendering branch | `components/ProductMedia.tsx` | No RN screen renders a *live* video yet (bag/dashboard/product-gallery only ever show poster stills); add via `expo-video` when one does |
+| Dashboard i18n (en/es copy) | `NewItem`/`DashboardPage`/`Settings`/`AssetsPage`/`AnalyticsPage` namespaces | English-only for now — cut to keep the dashboard phase shippable; every other phase is fully localized |
+| `ProductMedia` video-rendering branch | `components/ProductMedia.tsx` | No RN screen renders a *live* video yet (bag/dashboard/product-gallery only ever show poster stills) |
 | Google OAuth | `auth/page.tsx` `signInWithOAuth` | Needs `expo-auth-session` deep-link callback flow |
 | Public store curated sections + promo modal | `app/[locale]/[username]/**` "Featured Picks"/collection rows, anonymous promo modal | Marketing/growth layer on top of the core catalog-browsing loop, dropped for this pass |
 
