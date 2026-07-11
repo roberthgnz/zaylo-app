@@ -1,8 +1,9 @@
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 
 import { ItemStatusBadge } from "@/components/dashboard/ItemStatusBadge";
+import { Text } from "@/components/ui/text";
 import { getMainMediaPreview } from "@/lib/core/media";
 import type { ItemStatus, ZayloItem } from "@/lib/domains/catalog/types";
 

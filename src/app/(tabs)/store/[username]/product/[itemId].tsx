@@ -1,12 +1,13 @@
 import { Image } from "expo-image";
 import { useLocalSearchParams, usePathname, useRouter } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, Pressable, ScrollView, Share, Text, View } from "react-native";
+import { ActivityIndicator, Pressable, ScrollView, Share, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
 import { FormBanner } from "@/components/ui/form-banner";
+import { Text } from "@/components/ui/text";
 import { ItemStatusBadge } from "@/components/dashboard/ItemStatusBadge";
 import { StoreItemCard } from "@/components/store/StoreItemCard";
 import { trackBusinessEvent } from "@/lib/analytics";
@@ -192,7 +193,7 @@ export default function ProductDetailScreen() {
             <Image source={{ uri: photos[photoIndex] }} alt={item.name} style={{ width: "100%", height: "100%" }} contentFit="cover" />
           ) : null}
           {lowStockLabel ? (
-            <View className="absolute right-3 top-3 rounded-full bg-black/85 px-3 py-1.5">
+            <View className="absolute right-3 top-3 rounded-full bg-signal-red px-3 py-1.5">
               <Text className="text-[11px] font-bold uppercase text-white">{lowStockLabel}</Text>
             </View>
           ) : null}
@@ -212,7 +213,7 @@ export default function ProductDetailScreen() {
               </Pressable>
               <View className="absolute bottom-3 w-full flex-row justify-center gap-2">
                 {photos.map((_, index) => (
-                  <View key={index} className={index === photoIndex ? "h-1.5 w-1.5 rounded-full bg-black" : "h-1.5 w-1.5 rounded-full bg-black/30"} />
+                  <View key={index} className={index === photoIndex ? "h-1.5 w-1.5 rounded-full bg-carbon" : "h-1.5 w-1.5 rounded-full bg-carbon/30"} />
                 ))}
               </View>
             </>
@@ -224,8 +225,8 @@ export default function ProductDetailScreen() {
             <Text className="text-xs font-bold uppercase tracking-widest text-text-secondary-light dark:text-text-secondary-dark">
               Product
             </Text>
-            <Text className="text-2xl font-bold text-text-light dark:text-text-dark">{item.name}</Text>
-            <Text className="text-3xl font-bold text-text-light dark:text-text-dark">
+            <Text className="font-display text-2xl text-text-light dark:text-text-dark">{item.name}</Text>
+            <Text className="font-display text-3xl text-text-light dark:text-text-dark">
               {seller?.currency ?? "$"}
               {item.price}
             </Text>
@@ -248,11 +249,11 @@ export default function ProductDetailScreen() {
                   onPress={() => setSelectedSize(size)}
                   className={
                     activeSize === size
-                      ? "h-9 min-w-[44px] items-center justify-center rounded-lg bg-black px-3 dark:bg-white"
+                      ? "h-9 min-w-[44px] items-center justify-center rounded-lg bg-carbon px-3 dark:bg-bone"
                       : "h-9 min-w-[44px] items-center justify-center rounded-lg border border-neutral-300 px-3 dark:border-neutral-700"
                   }
                 >
-                  <Text className={activeSize === size ? "text-sm text-white dark:text-black" : "text-sm text-text-light dark:text-text-dark"}>
+                  <Text className={activeSize === size ? "text-sm text-bone dark:text-carbon" : "text-sm text-text-light dark:text-text-dark"}>
                     {size}
                   </Text>
                 </Pressable>
@@ -272,8 +273,8 @@ export default function ProductDetailScreen() {
 
         {item.condition ? (
           <View className="flex-row flex-wrap gap-2 border-t border-neutral-200 pt-4 dark:border-neutral-800">
-            <View className="rounded-full bg-black px-3 py-1.5 dark:bg-white">
-              <Text className="text-xs font-semibold capitalize text-white dark:text-black">{item.condition}</Text>
+            <View className="rounded-full bg-carbon px-3 py-1.5 dark:bg-bone">
+              <Text className="text-xs font-semibold capitalize text-bone dark:text-carbon">{item.condition}</Text>
             </View>
           </View>
         ) : null}
@@ -382,7 +383,7 @@ export default function ProductDetailScreen() {
             </Pressable>
           </>
         ) : canAddToBag ? (
-          <Button label="Add to bag" onPress={handleAddToBag} className="flex-1" />
+          <Button label="Add to bag" onPress={handleAddToBag} variant="cta" className="flex-1" />
         ) : (
           <View className="h-12 flex-1 items-center justify-center rounded-lg bg-neutral-200 dark:bg-neutral-800">
             <Text className="text-xs font-semibold text-neutral-500">Add to bag</Text>

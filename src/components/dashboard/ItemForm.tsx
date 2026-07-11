@@ -1,29 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, Switch, Text, View } from "react-native";
+import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, Switch, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Button } from "@/components/ui/button";
+import { Chip } from "@/components/ui/chip";
 import { FormBanner } from "@/components/ui/form-banner";
+import { Text } from "@/components/ui/text";
 import { TextField } from "@/components/ui/text-field";
 import { CATEGORIES, CONDITIONS, PROMO_TYPES, SIZE_OPTIONS } from "@/lib/domains/catalog/constants";
 import { itemFormSchema, type ItemFormValues } from "@/lib/domains/catalog/item-form-schema";
 import type { ItemStatus } from "@/lib/domains/catalog/types";
 import { PhotoSlot, type PhotoValue } from "./PhotoSlot";
-
-function Chip({ label, selected, onPress }: { label: string; selected: boolean; onPress: () => void }) {
-  return (
-    <Pressable
-      onPress={onPress}
-      className={selected ? "rounded-full bg-black px-3 py-1.5 dark:bg-white" : "rounded-full bg-neutral-100 px-3 py-1.5 dark:bg-neutral-800"}
-    >
-      <Text className={selected ? "text-xs font-semibold text-white dark:text-black" : "text-xs font-semibold text-text-light dark:text-text-dark"}>
-        {label}
-      </Text>
-    </Pressable>
-  );
-}
 
 export type ItemPhotos = {
   main: PhotoValue;
@@ -337,6 +326,7 @@ export function ItemForm({
           </Pressable>
           <Button
             label={isSubmitting ? submittingLabel : submitLabel}
+            variant="cta"
             isLoading={isSubmitting}
             onPress={handleSubmit(submit)}
             className="flex-1"

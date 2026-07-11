@@ -1,7 +1,8 @@
 import { useRouter } from "expo-router";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Text } from "@/components/ui/text";
 import { BottomTabInset } from "@/constants/theme";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
 import { useBagData } from "@/lib/useBagData";
@@ -31,7 +32,7 @@ export default function ProfileScreen() {
           <Text className="mb-2 text-xs font-bold uppercase tracking-widest text-white/50">
             Your account
           </Text>
-          <Text className="mb-3 text-3xl font-black tracking-tight text-white">
+          <Text className="mb-3 text-3xl font-display font-black tracking-tight text-white">
             {user?.email || "Zaylo profile"}
           </Text>
           <Text className="max-w-[30ch] text-sm leading-6 text-white/65">

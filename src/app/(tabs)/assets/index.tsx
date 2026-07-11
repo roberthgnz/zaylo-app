@@ -1,11 +1,12 @@
 import * as ImagePicker from "expo-image-picker";
 import { Image } from "expo-image";
 import { useMemo, useState } from "react";
-import { ActivityIndicator, Alert, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Modal, Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
+import { Text } from "@/components/ui/text";
 import { BottomTabInset } from "@/constants/theme";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
 import { itemPhotosToAssets, mergeUniqueAssets, formatSize, type DisplayAsset } from "@/lib/domains/assets/asset-utils";

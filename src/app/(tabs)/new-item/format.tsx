@@ -1,9 +1,10 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Button } from "@/components/ui/button";
+import { Text } from "@/components/ui/text";
 
 type SessionType = "solo" | "model";
 
@@ -19,7 +20,7 @@ export default function NewItemFormatScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background-light dark:bg-background-dark" edges={["top", "bottom"]}>
       <ScrollView contentContainerClassName="flex-grow px-5 pt-6">
-        <Text className="mb-2 text-2xl font-black text-text-light dark:text-text-dark">New Drop Session</Text>
+        <Text className="mb-2 text-2xl font-black font-display text-text-light dark:text-text-dark">New Drop Session</Text>
         <Text className="mb-6 text-sm text-text-secondary-light dark:text-text-secondary-dark">
           Choose how you want to upload items.
         </Text>

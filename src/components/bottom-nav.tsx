@@ -51,11 +51,28 @@ export function BottomNavList({ children }: TabListProps) {
   );
 }
 
-type NavIconProps = { icon: keyof typeof Feather.glyphMap };
+type NavIconProps = { icon: keyof typeof Feather.glyphMap; variant?: 'default' | 'cta' };
 
 /** One button inside the floating pill (Home / Store / New Item / Assets). */
-export function NavPillButton({ isFocused, icon, ...props }: TabTriggerSlotProps & NavIconProps) {
+export function NavPillButton({
+  isFocused,
+  icon,
+  variant = 'default',
+  ...props
+}: TabTriggerSlotProps & NavIconProps) {
   const scheme = useColorScheme();
+
+  if (variant === 'cta') {
+    return (
+      <Pressable
+        {...props}
+        style={({ pressed }) => pressed && { opacity: 0.7 }}
+        className="h-[42px] w-11 items-center justify-center rounded-full bg-acid-lime">
+        <Feather name={icon} color="#0B0B0B" size={22} />
+      </Pressable>
+    );
+  }
+
   const tint = isFocused ? (scheme === 'dark' ? '#ffffff' : '#000000') : '#71717a';
 
   return (

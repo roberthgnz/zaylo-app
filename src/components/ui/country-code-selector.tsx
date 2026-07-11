@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
 import type { CountryCode } from "libphonenumber-js";
-import { FlatList, Modal, Pressable, Text, TextInput, View } from "react-native";
+import { FlatList, Modal, Pressable, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+import { Text } from "@/components/ui/text";
 
 export interface CountryOption {
   code: CountryCode;
@@ -83,7 +85,7 @@ export function CountryCodeSelector({ countries, selectedCountry, onSelect }: Co
               placeholder="Search country..."
               placeholderTextColor="#9CA3AF"
               autoCapitalize="none"
-              className="mb-3 h-11 rounded-lg border border-neutral-300 px-3.5 text-[15px] text-text-light dark:border-neutral-700 dark:text-text-dark"
+              className="mb-3 h-11 rounded-lg border border-neutral-300 px-3.5 text-[15px] font-sans text-text-light dark:border-neutral-700 dark:text-text-dark"
             />
             <FlatList
               data={filteredCountries}

@@ -2,12 +2,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { FormBanner } from "@/components/ui/form-banner";
+import { Text } from "@/components/ui/text";
 import { TextField } from "@/components/ui/text-field";
 import { supabase } from "@/lib/supabase/client";
 

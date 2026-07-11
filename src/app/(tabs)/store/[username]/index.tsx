@@ -1,9 +1,11 @@
 import { Image } from "expo-image";
 import { useLocalSearchParams, usePathname, useRouter } from "expo-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, Linking, Pressable, ScrollView, Share, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Linking, Pressable, ScrollView, Share, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Chip } from "@/components/ui/chip";
+import { Text } from "@/components/ui/text";
 import { StoreItemCard } from "@/components/store/StoreItemCard";
 import { trackBusinessEvent } from "@/lib/analytics";
 import { useStoreByUsernameQuery } from "@/lib/domains/public-store/queries";
@@ -102,7 +104,7 @@ export default function StorefrontScreen() {
         </Pressable>
 
         <View className="items-center rounded-2xl border border-neutral-200 bg-background-element-light p-5 dark:border-neutral-800 dark:bg-background-element-dark">
-          <View className="mb-3 h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-black">
+          <View className="mb-3 h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-carbon">
             {profile?.avatarUrl ? (
               <Image
                 source={{ uri: profile.avatarUrl }}
@@ -111,10 +113,10 @@ export default function StorefrontScreen() {
                 contentFit="cover"
               />
             ) : (
-              <Text className="text-lg font-black text-white">ZY</Text>
+              <Text className="font-display text-lg text-bone">ZY</Text>
             )}
           </View>
-          <Text className="text-xl font-bold text-text-light dark:text-text-dark">{profile?.storeName}</Text>
+          <Text className="font-display text-xl text-text-light dark:text-text-dark">{profile?.storeName}</Text>
           <Text className="mb-2 text-sm text-text-secondary-light dark:text-text-secondary-dark">@{profile?.username}</Text>
           {profile?.description ? (
             <Text className="mb-3 text-center text-sm text-text-secondary-light dark:text-text-secondary-dark">
@@ -124,9 +126,9 @@ export default function StorefrontScreen() {
           <View className="w-full flex-row gap-2">
             <Pressable
               onPress={handleShare}
-              className="h-10 flex-1 items-center justify-center rounded-full border border-neutral-300 dark:border-neutral-700"
+              className="h-10 flex-1 items-center justify-center rounded-full bg-acid-lime"
             >
-              <Text className="text-sm font-bold text-text-light dark:text-text-dark">Share</Text>
+              <Text className="text-sm font-bold text-carbon">Share</Text>
             </Pressable>
             {whatsappUrl ? (
               <Pressable onPress={handleWhatsapp} className="h-10 flex-1 items-center justify-center rounded-full bg-black dark:bg-white">
@@ -141,30 +143,17 @@ export default function StorefrontScreen() {
           onChangeText={setSearch}
           placeholder="Search the drop..."
           placeholderTextColor="#9CA3AF"
-          className="h-11 rounded-full border border-neutral-300 px-4 text-[15px] text-text-light dark:border-neutral-700 dark:text-text-dark"
+          className="h-11 rounded-full border border-neutral-300 px-4 text-[15px] font-sans text-text-light dark:border-neutral-700 dark:text-text-dark"
         />
 
         <View className="flex-row flex-wrap gap-2">
           {CATEGORY_CHIPS.map((chip) => (
-            <Pressable
+            <Chip
               key={chip.value}
+              label={chip.label}
+              selected={category === chip.value}
               onPress={() => setCategory(chip.value)}
-              className={
-                category === chip.value
-                  ? "rounded-full bg-black px-4 py-1.5 dark:bg-white"
-                  : "rounded-full bg-neutral-100 px-4 py-1.5 dark:bg-neutral-800"
-              }
-            >
-              <Text
-                className={
-                  category === chip.value
-                    ? "text-xs font-bold uppercase text-white dark:text-black"
-                    : "text-xs font-bold uppercase text-text-secondary-light dark:text-text-secondary-dark"
-                }
-              >
-                {chip.label}
-              </Text>
-            </Pressable>
+            />
           ))}
         </View>
 

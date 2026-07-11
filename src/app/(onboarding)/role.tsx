@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Button } from "@/components/ui/button";
+import { Text } from "@/components/ui/text";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
 import { submitOnboardingRole } from "@/lib/domains/onboarding/client";
 import { useOnboardingNav } from "@/lib/navigation/useOnboardingNav";
@@ -39,7 +40,7 @@ export default function OnboardingRoleScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background-light dark:bg-background-dark" edges={["top", "bottom"]}>
       <ScrollView contentContainerClassName="flex-grow px-5 pt-6" keyboardShouldPersistTaps="handled">
-        <Text className="mb-2 text-[22px] font-semibold text-text-light dark:text-text-dark">{t("title")}</Text>
+        <Text className="mb-2 font-display text-[22px] text-text-light dark:text-text-dark">{t("title")}</Text>
         <Text className="mb-6 text-[14px] leading-relaxed text-text-secondary-light dark:text-text-secondary-dark">
           {t("subtitle")}
         </Text>

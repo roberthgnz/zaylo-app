@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Modal, Pressable, Text, View } from "react-native";
+import { Modal, Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Text } from "@/components/ui/text";
 import type { Locale } from "@/lib/i18n/config";
 import { setPersistedLocale } from "@/lib/i18n/persistLocale";
 

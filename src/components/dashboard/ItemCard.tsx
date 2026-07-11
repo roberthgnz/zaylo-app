@@ -1,6 +1,7 @@
 import { Image } from "expo-image";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 
+import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 import type { ZayloItem } from "@/lib/domains/catalog/types";
 import { ItemStatusBadge } from "./ItemStatusBadge";

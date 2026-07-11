@@ -2,12 +2,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Button } from "@/components/ui/button";
 import { FormBanner } from "@/components/ui/form-banner";
 import { PhoneInput } from "@/components/ui/phone-input";
+import { Text } from "@/components/ui/text";
 import { TextField } from "@/components/ui/text-field";
 import { PhotoSlot, type PhotoValue } from "@/components/dashboard/PhotoSlot";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
@@ -94,7 +95,7 @@ export default function StoreSettingsScreen() {
             <Text className="text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark">Back to settings</Text>
           </Pressable>
 
-          <Text className="text-2xl font-black text-text-light dark:text-text-dark">Store settings</Text>
+          <Text className="text-2xl font-display font-black text-text-light dark:text-text-dark">Store settings</Text>
 
           {saveError ? <FormBanner message={saveError} variant="error" /> : null}
 
@@ -168,7 +169,7 @@ export default function StoreSettingsScreen() {
                     setCustomHexOpen(false);
                   }}
                   className="h-9 w-9 items-center justify-center rounded-full border-2"
-                  style={{ backgroundColor: color.hex, borderColor: accent === color.hex ? "#3b82f6" : "transparent" }}
+                  style={{ backgroundColor: color.hex, borderColor: accent === color.hex ? "#0B0B0B" : "transparent" }}
                 >
                   {accent === color.hex ? <Text className="text-xs font-bold text-white">✓</Text> : null}
                 </Pressable>

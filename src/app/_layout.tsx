@@ -1,5 +1,6 @@
 import '../global.css';
 
+import { Geist_400Regular, Geist_700Bold, useFonts } from '@expo-google-fonts/geist';
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { colorScheme as nativewindColorScheme } from 'nativewind';
@@ -44,6 +45,10 @@ function RootNavigator() {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const [fontsLoaded, fontError] = useFonts({
+    Geist_400Regular,
+    Geist_700Bold,
+  });
 
   // tailwind.config.js sets darkMode: 'class' (avoids a NativeWind web-preview
   // dev-only crash under 'media' — see migration-roadmap.md). 'class' mode
@@ -61,7 +66,7 @@ export default function RootLayout() {
         <QueryProvider>
           <CurrentUserProvider>
             <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-              <AnimatedSplashOverlay />
+              {(fontsLoaded || fontError) && <AnimatedSplashOverlay />}
               <BagSyncProvider />
               <RootNavigator />
             </ThemeProvider>

@@ -1,7 +1,8 @@
 import * as ImagePicker from "expo-image-picker";
 import { Image } from "expo-image";
-import { Alert, Pressable, Text, View } from "react-native";
+import { Alert, Pressable, View } from "react-native";
 
+import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 
 export type PhotoValue = { uri: string; name: string; type: string } | null;

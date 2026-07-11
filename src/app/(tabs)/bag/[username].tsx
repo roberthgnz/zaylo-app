@@ -2,7 +2,7 @@ import { Image } from "expo-image";
 import { useLocalSearchParams, usePathname, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Linking, Pressable, ScrollView, Text, View } from "react-native";
+import { Linking, Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -12,6 +12,8 @@ import { getMainMediaPreview } from "@/lib/core/media";
 import { clearBagStoreMutation, removeBagItemMutation } from "@/lib/domains/bag/queries";
 import { useBagStore } from "@/lib/stores/useBagStore";
 import { useBagData } from "@/lib/useBagData";
+import { Button } from "@/components/ui/button";
+import { Text } from "@/components/ui/text";
 
 export default function StoreBagScreen() {
   const { t } = useTranslation("StoreBagPage");
@@ -69,7 +71,7 @@ export default function StoreBagScreen() {
             <Text className="mb-2 text-xs font-bold uppercase tracking-widest text-text-secondary-light dark:text-text-secondary-dark">
               @{username}
             </Text>
-            <Text className="text-2xl font-black tracking-tight text-text-light dark:text-text-dark">
+            <Text className="text-2xl font-black font-display tracking-tight text-text-light dark:text-text-dark">
               {t("heading")}
             </Text>
           </View>
@@ -84,7 +86,7 @@ export default function StoreBagScreen() {
 
         {storeItems.length === 0 ? (
           <View className="rounded-3xl border border-neutral-200 bg-background-element-light p-6 dark:border-neutral-800 dark:bg-background-element-dark">
-            <Text className="mb-3 text-center text-xl font-bold text-text-light dark:text-text-dark">
+            <Text className="mb-3 text-center text-xl font-bold font-display text-text-light dark:text-text-dark">
               {t("emptyTitle")}
             </Text>
             <Pressable onPress={() => router.push("/bag")}>
@@ -164,11 +166,7 @@ export default function StoreBagScreen() {
 
       <View className="border-t border-neutral-200 bg-background-light/90 p-4 dark:border-neutral-800 dark:bg-background-dark/90">
         {whatsappUrl ? (
-          <Pressable onPress={handleCheckout} className="h-12 items-center justify-center rounded-lg bg-black dark:bg-white">
-            <Text className="text-sm font-semibold text-white dark:text-black">
-              {t("continueWith", { username })}
-            </Text>
-          </Pressable>
+          <Button variant="cta" label={t("continueWith", { username })} onPress={handleCheckout} />
         ) : (
           <View className="h-12 items-center justify-center rounded-lg bg-neutral-200 dark:bg-neutral-800">
             <Text className="text-sm font-semibold text-neutral-500">{t("sellerContactUnavailable")}</Text>

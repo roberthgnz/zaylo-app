@@ -3,12 +3,13 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Button } from "@/components/ui/button";
 import { FormBanner } from "@/components/ui/form-banner";
 import { PhoneInput } from "@/components/ui/phone-input";
+import { Text } from "@/components/ui/text";
 import { TextField } from "@/components/ui/text-field";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
 import { submitOnboardingStep2 } from "@/lib/domains/onboarding/client";
@@ -83,7 +84,7 @@ export default function OnboardingStep2Screen() {
     <SafeAreaView className="flex-1 bg-background-light dark:bg-background-dark" edges={["top", "bottom"]}>
       <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <ScrollView contentContainerClassName="flex-grow px-5 pt-6" keyboardShouldPersistTaps="handled">
-          <Text className="mb-2 text-[22px] font-semibold text-text-light dark:text-text-dark">{t("title")}</Text>
+          <Text className="mb-2 font-display text-[22px] text-text-light dark:text-text-dark">{t("title")}</Text>
           <Text className="mb-6 text-[14px] leading-relaxed text-text-secondary-light dark:text-text-secondary-dark">
             {t("description")}
           </Text>

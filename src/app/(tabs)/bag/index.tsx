@@ -2,10 +2,11 @@ import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { groupBagItemsByStore } from "@/lib/bag";
+import { Text } from "@/components/ui/text";
 import { BottomTabInset } from "@/constants/theme";
 import { getMainMediaPreview } from "@/lib/core/media";
 import { clearBagMutation } from "@/lib/domains/bag/queries";
@@ -48,7 +49,7 @@ export default function BagScreen() {
             <Text className="mb-2 text-xs font-bold uppercase tracking-widest text-text-secondary-light dark:text-text-secondary-dark">
               {t("eyebrow")}
             </Text>
-            <Text className="text-3xl font-black tracking-tight text-text-light dark:text-text-dark">
+            <Text className="text-3xl font-black font-display tracking-tight text-text-light dark:text-text-dark">
               {t("heading")}
             </Text>
           </View>
@@ -63,7 +64,7 @@ export default function BagScreen() {
 
         {storeGroups.length === 0 ? (
           <View className="rounded-3xl border border-neutral-200 bg-background-element-light p-6 dark:border-neutral-800 dark:bg-background-element-dark">
-            <Text className="mb-2 text-center text-xl font-bold text-text-light dark:text-text-dark">
+            <Text className="mb-2 text-center text-xl font-bold font-display text-text-light dark:text-text-dark">
               {t("emptyTitle")}
             </Text>
             <Text className="text-center text-sm leading-6 text-text-secondary-light dark:text-text-secondary-dark">
@@ -86,7 +87,7 @@ export default function BagScreen() {
                       <Text className="text-xs font-bold uppercase tracking-widest text-text-secondary-light dark:text-text-secondary-dark">
                         @{username}
                       </Text>
-                      <Text className="mt-1 text-2xl font-black text-text-light dark:text-text-dark">
+                      <Text className="mt-1 text-2xl font-black font-display text-text-light dark:text-text-dark">
                         {t("itemsCount", { count: storeItems.length })}
                       </Text>
                     </View>

@@ -31,7 +31,7 @@ export default function AppTabs() {
 
           {isSeller ? (
             <TabTrigger name="new-item" href="/new-item/format" asChild>
-              <NavPillButton icon="plus" />
+              <NavPillButton icon="plus" variant="cta" />
             </TabTrigger>
           ) : null}
 

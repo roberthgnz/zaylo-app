@@ -1,8 +1,10 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Chip } from "@/components/ui/chip";
+import { Text } from "@/components/ui/text";
 import { useBusinessAnalyticsSummaryQuery } from "@/lib/domains/analytics/queries";
 
 function StatRow({ label, value }: { label: string; value: number }) {
@@ -28,19 +30,16 @@ export default function AnalyticsScreen() {
           <Text className="text-sm font-semibold text-text-secondary-light dark:text-text-secondary-dark">Back</Text>
         </Pressable>
 
-        <Text className="text-2xl font-black text-text-light dark:text-text-dark">Analytics</Text>
+        <Text className="text-2xl font-display font-black text-text-light dark:text-text-dark">Analytics</Text>
 
         <View className="flex-row gap-2">
           {([7, 30] as const).map((option) => (
-            <Pressable
+            <Chip
               key={option}
+              label={`${option} days`}
+              selected={days === option}
               onPress={() => setDays(option)}
-              className={days === option ? "rounded-full bg-black px-4 py-1.5 dark:bg-white" : "rounded-full bg-neutral-100 px-4 py-1.5 dark:bg-neutral-800"}
-            >
-              <Text className={days === option ? "text-xs font-semibold text-white dark:text-black" : "text-xs font-semibold text-text-secondary-light dark:text-text-secondary-dark"}>
-                {option} days
-              </Text>
-            </Pressable>
+            />
           ))}
         </View>
 

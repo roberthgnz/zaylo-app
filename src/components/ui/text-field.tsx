@@ -1,7 +1,8 @@
 import { forwardRef, useState } from "react";
-import { Pressable, Text, TextInput, View, type TextInputProps } from "react-native";
+import { Pressable, TextInput, View, type TextInputProps } from "react-native";
 
 import { cn } from "@/lib/utils";
+import { Text } from "@/components/ui/text";
 
 export type TextFieldProps = TextInputProps & {
   label?: string;
@@ -26,7 +27,7 @@ export const TextField = forwardRef<TextInput, TextFieldProps>(
           <TextInput
             ref={ref}
             className={cn(
-              "h-11 flex-1 rounded-lg border border-neutral-300 px-4 text-[15px] text-text-light dark:border-neutral-700 dark:text-text-dark",
+              "h-11 flex-1 rounded-lg border border-neutral-300 px-4 text-[15px] font-sans text-text-light dark:border-neutral-700 dark:text-text-dark",
               error && "border-red-500",
               className
             )}

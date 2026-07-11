@@ -1,7 +1,8 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 import { cn } from "@/lib/utils";
 import type { ItemStatus } from "@/lib/domains/catalog/types";
+import { Text } from "@/components/ui/text";
 
 const LABELS: Record<ItemStatus, string> = {
   available: "Available",
@@ -11,17 +12,17 @@ const LABELS: Record<ItemStatus, string> = {
 };
 
 const TONE_CLASSNAMES: Record<ItemStatus, string> = {
-  available: "bg-black dark:bg-white",
-  reserved: "bg-neutral-200 dark:bg-neutral-700",
-  sold: "bg-neutral-200 dark:bg-neutral-700",
-  archived: "bg-neutral-200 dark:bg-neutral-700",
+  available: "bg-electric-blue",
+  reserved: "bg-signal-red",
+  sold: "bg-carbon",
+  archived: "bg-zinc-200",
 };
 
 const TEXT_CLASSNAMES: Record<ItemStatus, string> = {
-  available: "text-white dark:text-black",
-  reserved: "text-neutral-700 dark:text-neutral-200",
-  sold: "text-neutral-400 dark:text-neutral-500 line-through",
-  archived: "text-neutral-400 dark:text-neutral-500",
+  available: "text-white",
+  reserved: "text-white",
+  sold: "text-bone line-through",
+  archived: "text-zinc-600",
 };
 
 export function ItemStatusBadge({ status }: { status: ItemStatus }) {

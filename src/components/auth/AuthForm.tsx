@@ -3,12 +3,13 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { KeyboardAvoidingView, Platform, ScrollView, Text, View } from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { FormBanner } from "@/components/ui/form-banner";
+import { Text } from "@/components/ui/text";
 import { TextField } from "@/components/ui/text-field";
 import { supabase } from "@/lib/supabase/client";
 import { getUserProfile } from "@/lib/domains/profile/client";
@@ -85,7 +86,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
           contentContainerClassName="flex-grow px-6 py-8"
           keyboardShouldPersistTaps="handled"
         >
-          <Text className="mb-2 font-bold text-4xl text-text-light dark:text-text-dark">
+          <Text className="mb-2 font-display text-4xl text-text-light dark:text-text-dark">
             {isLogin ? t("login") : t("signup")}
           </Text>
           <Text className="mb-8 text-base text-text-secondary-light dark:text-text-secondary-dark">

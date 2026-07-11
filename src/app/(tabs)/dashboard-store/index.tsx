@@ -1,9 +1,10 @@
 import { useRouter } from "expo-router";
 import { useMemo, useState } from "react";
-import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Button } from "@/components/ui/button";
+import { Text } from "@/components/ui/text";
 import { ItemList } from "@/components/dashboard/ItemList";
 import { BottomTabInset } from "@/constants/theme";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
@@ -37,8 +38,8 @@ export default function DashboardStoreScreen() {
     <SafeAreaView className="flex-1 bg-background-light dark:bg-background-dark" edges={["top", "bottom"]}>
       <ScrollView contentContainerClassName="gap-4 px-5 pt-6" contentContainerStyle={{ paddingBottom: BottomTabInset }}>
         <View className="flex-row items-center justify-between">
-          <Text className="text-2xl font-black text-text-light dark:text-text-dark">Store</Text>
-          <Button label="New item" size="sm" onPress={() => router.push("/new-item/format")} />
+          <Text className="font-display text-2xl font-black text-text-light dark:text-text-dark">Store</Text>
+          <Button label="New item" variant="cta" size="sm" onPress={() => router.push("/new-item/format")} />
         </View>
 
         <TextInput
@@ -46,7 +47,7 @@ export default function DashboardStoreScreen() {
           onChangeText={setSearch}
           placeholder="Search your items..."
           placeholderTextColor="#9CA3AF"
-          className="h-11 rounded-lg border border-neutral-300 px-4 text-[15px] text-text-light dark:border-neutral-700 dark:text-text-dark"
+          className="h-11 rounded-lg border border-neutral-300 px-4 text-[15px] font-sans text-text-light dark:border-neutral-700 dark:text-text-dark"
         />
 
         <Pressable onPress={() => setSortNewestFirst((prev) => !prev)} className="self-start">

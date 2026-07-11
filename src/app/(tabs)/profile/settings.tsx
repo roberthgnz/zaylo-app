@@ -1,9 +1,10 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { Text } from "@/components/ui/text";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
 import { supabase } from "@/lib/supabase/client";
 
@@ -35,7 +36,7 @@ export default function SettingsScreen() {
           <Text className="mb-2 text-xs font-bold uppercase tracking-widest text-text-secondary-light dark:text-text-secondary-dark">
             Buyer account
           </Text>
-          <Text className="mb-2 text-3xl font-black tracking-tight text-text-light dark:text-text-dark">
+          <Text className="mb-2 text-3xl font-display font-black tracking-tight text-text-light dark:text-text-dark">
             Settings
           </Text>
           <Text className="text-sm leading-6 text-text-secondary-light dark:text-text-secondary-dark">

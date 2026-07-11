@@ -1,7 +1,8 @@
 import { Image } from "expo-image";
-import { Alert, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { Alert, Modal, Pressable, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Text } from "@/components/ui/text";
 import type { ItemStatus, ZayloItem } from "@/lib/domains/catalog/types";
 import { ItemStatusBadge } from "./ItemStatusBadge";
 
@@ -59,7 +60,7 @@ export function ItemDetailSheet({
               ) : null}
             </View>
             <View className="flex-1">
-              <Text className="text-lg font-bold text-text-light dark:text-text-dark" numberOfLines={1}>
+              <Text className="font-display text-lg font-bold text-text-light dark:text-text-dark" numberOfLines={1}>
                 {item.name}
               </Text>
               <Text className="mb-1 text-text-secondary-light dark:text-text-secondary-dark">${item.price}</Text>

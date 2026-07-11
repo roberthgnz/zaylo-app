@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { getCountries, getCountryCallingCode, type CountryCode } from "libphonenumber-js";
-import { Text, TextInput, View, type TextInputProps } from "react-native";
+import { TextInput, View, type TextInputProps } from "react-native";
 
+import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 import { CountryCodeSelector } from "./country-code-selector";
 
@@ -94,7 +95,7 @@ export function PhoneInput({
           onChangeText={handleInputChange}
           keyboardType="phone-pad"
           placeholderTextColor="#9CA3AF"
-          className="ml-2 flex-1 pr-3.5 text-[15px] text-text-light dark:text-text-dark"
+          className="ml-2 flex-1 pr-3.5 text-[15px] font-sans text-text-light dark:text-text-dark"
           {...rest}
         />
       </View>

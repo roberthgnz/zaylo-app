@@ -1,9 +1,10 @@
 import { useRouter } from "expo-router";
 import { useMemo } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Button } from "@/components/ui/button";
+import { Text } from "@/components/ui/text";
 import { BottomTabInset } from "@/constants/theme";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
 import { useItemsByUserQuery, useItemsByUserRealtime } from "@/lib/domains/catalog/queries";
@@ -37,7 +38,7 @@ export function DashboardHomeScreen() {
         contentContainerClassName="gap-5 px-5 pt-6"
         contentContainerStyle={{ paddingBottom: BottomTabInset }}>
         <View>
-          <Text className="mb-1 text-2xl font-black text-text-light dark:text-text-dark">
+          <Text className="font-display mb-1 text-2xl font-black text-text-light dark:text-text-dark">
             Hello, {user?.profile?.storeName || "seller"} 👋
           </Text>
           <Text className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
@@ -50,10 +51,10 @@ export function DashboardHomeScreen() {
             <Text className="mb-3 text-sm text-text-secondary-light dark:text-text-secondary-dark">
               Store setup in progress. {items.length}/4 items uploaded.
             </Text>
-            <Button label="Add new item" onPress={() => router.push("/new-item/format")} />
+            <Button label="Add new item" variant="cta" onPress={() => router.push("/new-item/format")} />
           </View>
         ) : (
-          <Button label="Add new item" onPress={() => router.push("/new-item/format")} />
+          <Button label="Add new item" variant="cta" onPress={() => router.push("/new-item/format")} />
         )}
 
         {user?.profile?.username ? (
@@ -75,7 +76,7 @@ export function DashboardHomeScreen() {
         />
 
         <View>
-          <Text className="mb-3 text-lg font-bold text-text-light dark:text-text-dark">Your items</Text>
+          <Text className="font-display mb-3 text-lg font-bold text-text-light dark:text-text-dark">Your items</Text>
           <ItemList items={items} isLoading={itemsQuery.isLoading} emptyText="No items yet — add your first one above." />
         </View>
       </ScrollView>

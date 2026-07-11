@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { useMemo, useState } from "react";
-import { ActivityIndicator, Alert, Pressable, Text, View } from "react-native";
+import { ActivityIndicator, Alert, Pressable, View } from "react-native";
 import { useQueryClient } from "@tanstack/react-query";
 
 import {
@@ -11,6 +11,8 @@ import {
 import { setItemStatusInCaches } from "@/lib/domains/catalog/queries";
 import type { ItemStatus, ZayloItem } from "@/lib/domains/catalog/types";
 import { useCurrentUser } from "@/lib/current-user/CurrentUserProvider";
+import { Chip } from "@/components/ui/chip";
+import { Text } from "@/components/ui/text";
 import { ItemCard } from "./ItemCard";
 import { ItemDetailSheet } from "./ItemDetailSheet";
 
@@ -143,25 +145,12 @@ export function ItemList({
     <View>
       <View className="mb-3 flex-row flex-wrap gap-2">
         {STATUS_FILTERS.map((filter) => (
-          <Pressable
+          <Chip
             key={filter.id}
+            label={filter.label}
+            selected={statusFilter === filter.id}
             onPress={() => setStatusFilter(filter.id)}
-            className={
-              statusFilter === filter.id
-                ? "rounded-full bg-black px-3 py-1.5 dark:bg-white"
-                : "rounded-full bg-neutral-100 px-3 py-1.5 dark:bg-neutral-800"
-            }
-          >
-            <Text
-              className={
-                statusFilter === filter.id
-                  ? "text-xs font-semibold text-white dark:text-black"
-                  : "text-xs font-semibold text-text-secondary-light dark:text-text-secondary-dark"
-              }
-            >
-              {filter.label}
-            </Text>
-          </Pressable>
+          />
         ))}
       </View>
 
